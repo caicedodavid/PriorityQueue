@@ -2,7 +2,7 @@
 
 Creates an API of a Priority Queue
 
-#### Build and run API
+### Build and run API
 ```
 docker-compose up
 ```
