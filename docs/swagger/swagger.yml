@@ -13,7 +13,7 @@ paths:
       tags:
         - Queue
       requestBody:
-        description: Lumen version
+        description: Add a Job to the queue. for MULTIPLE INSERTS You can also pass an ARRAY OF OBJECTS.
         content:
           application/json:
             schema:
