@@ -7,7 +7,7 @@ services:
     volumes:
       - ./src:/src
     ports:
-      - 8000:8000
+      - 8040:8000
     links:
       - mysql-db:db
   mysql-db:
@@ -22,3 +22,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: priority_queue
+  swagger:
+    image: swaggerapi/swagger-ui
+    network_mode: bridge
+    ports:
+      - 8085:8080
+    volumes:
+      - ./docs/swagger:/usr/share/nginx/html/definitions
+    environment:
+      API_URL: definitions/swagger.yml

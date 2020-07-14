@@ -1,0 +1,99 @@
+openapi: '3.0.2'
+info:
+  title: Priority Queue
+  version: '1.0'
+servers:
+  - url: http://localhost:8040
+tags:
+  - name: Queue
+    description: Server information endpoints
+paths:
+  /queue:
+    post:
+      tags:
+        - Queue
+      requestBody:
+        description: Lumen version
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                submitter_id:
+                  type: integer
+                command:
+                  type: string
+      responses:
+        '200':
+          description: Job created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Job id
+  /queue/{id}:
+    get:
+      tags:
+        - Queue
+      summary: Get order data
+      parameters:
+        - in: path
+          name: id
+          description: Job id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        '404':
+          description: Job not found
+  /queue/average:
+    get:
+      tags:
+        - Queue
+      summary: Average processing time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  average:
+                    type: string
+                    description: time in miliseconds
+        '404':
+          description: Job not found
+
+components:
+  schemas:
+    Job:
+      type: object
+      properties:
+        order_id:
+          type: integer
+          description: User token
+        processor_id:
+          type: integer
+          description: Processor id
+        submitter_id:
+          type: string
+          description: The Sumitters id
+        command:
+          type: string
+          description: The command to execute
+        status:
+          type: string
+          enum:
+            - PROCESSED
+            - PROCESSING
+          description: The status of the Job
