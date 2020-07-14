@@ -64,16 +64,13 @@ class ConsumeQueue extends Command
         while (true) {
             $job = $this->_queue->pop();
             if (!$job) {
-                sleep(5);
-                print("nothing\n");
+                sleep(1);
                 continue;
             }
             $init = self::getMilliseconds();
             $job->execute();
             $finish = self::getMilliseconds();
             $this->_queue->finished($job, getmypid(), $finish - $init);
-            echo "gonna sleep a while\n";
-            sleep(10);
         }
     }
 
